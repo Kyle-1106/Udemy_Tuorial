@@ -1,0 +1,7 @@
+<div *ngIf="member">
+    <h2>{{member.id}}</h2>
+    <h2>{{member.name}}</h2>
+    <label>名前:
+        <input type="text" [(ngModel)]="member.name" placeholder="名前"> 
+    </label>
+    </div>
