@@ -3,21 +3,30 @@ import { Member } from './member';
 import { MEMBERS } from './mock-member';
 import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
+import { ConstantPool } from '@angular/compiler';
 
-//データを返すなど具体的な処理はサービスクラスに実装する
 @Injectable({
   providedIn: 'root'
 })
 export class MemberService {
 
-  constructor(private messageService:MessageService) {
-    
-   }
+  constructor(private messageService: MessageService) { }
 
-  //モックの中のデータを返すメソッド作成
-  //サーバやDBからデータを取得する際には非同期処理で実装するべきなので、Observableを返すようにする
-  getMembers():Observable<Member[]>{
-    //of関数を使用して、Observable型にする。
+  getMembers(): Observable<Member[]> {
+    this.messageService.addMessage('MemberService: 社員一覧データを取得しました');
     return of(MEMBERS);
   }
+
+  // getMember(id: number): Observable<Member> {
+  //   this.messageService.addMessage(`MemberService: 社員データ(id=${id})を取得しました`);
+  //   const detailMember=of(MEMBERS.find(member => member.id === id));
+  //   if(detailMember instanceof Observable<Member>){
+  //     return detailMember;
+  //   }
+  //   else{
+  //     console.log("該当なし")
+  //   }
+    
+    
+  // }
 }
