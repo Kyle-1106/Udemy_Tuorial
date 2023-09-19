@@ -4,16 +4,19 @@ import { MEMBERS } from './mock-member';
 import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { ConstantPool } from '@angular/compiler';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MemberService {
+  private messagesUrl="api/members"
 
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService,private http:HttpClient) { }
 
   getMembers(): Observable<Member[]> {
     this.messageService.addMessage('MemberService: 社員一覧データを取得しました');
+    this.http.get<Member[]>(this.messagesUrl)
     return of(MEMBERS);
   }
 
@@ -29,4 +32,11 @@ export class MemberService {
     
     
   // }
+
+
+  private log(message:string){
+    this.messageService.addMessage(`messageService:${{message}`)
+  }
 }
+
+
